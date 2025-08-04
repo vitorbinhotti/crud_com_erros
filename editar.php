@@ -1,17 +1,17 @@
 <?php
-// Edição com erro de lógica (não busca o ID corretamente)
 include("conexao.php");
 
-$id = $_GET["id"];
-$sql = "SELECT * FROM usuarios WHERE id = $id";
+$nome = $_GET["nome"];
+$email = $_GET["email"];
+$sql = "SELECT * FROM usuarios WHERE nome = '$nome' AND email = '$email'";
 $res = mysqli_query($conn, $sql);
 $dado = mysqli_fetch_assoc($res);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome = $_POST["nome"];
-    $email = $_POST["email"];
+    $novo_nome = $_POST["nome"];
+    $novo_email = $_POST["email"];
 
-    $sql = "UPDATE usuarios SET nome='$nome', email='$email' WHERE id=$id";
+    $sql = "UPDATE usuarios SET nome='$novo_nome', email='$novo_email' WHERE nome='$nome' AND email='$email'";
     mysqli_query($conn, $sql);
     header("Location: index.php");
 }

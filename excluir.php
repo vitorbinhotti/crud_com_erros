@@ -1,10 +1,17 @@
 <?php
-// Exclusão com risco de SQL Injection e sem confirmação
 include("conexao.php");
 
-$id = $_GET["id"];
-$sql = "DELETE FROM usuarios WHERE id = $id";
-mysqli_query($conn, $sql);
+$email = $_GET["email"];
+$nome = $_GET["nome"];
+$sql = "DELETE FROM usuarios WHERE email = '$email' AND nome = '$nome'";
+$result = mysqli_query($conn, $sql);
 
-header("Location: index.php");
+if ($result) {
+    echo "Usuário excluído com sucesso!";
+    echo "<br><br>";
+    echo "<a href='index.php'>Voltar ao Início</a>";
+} else {
+    echo "Erro ao excluir usuário.";
+}
+
 ?>
